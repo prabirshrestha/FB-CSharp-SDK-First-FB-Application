@@ -21,7 +21,7 @@ namespace FirstFacebookApplication
 
         public FacebookLoginDialog(string appId, string[] extendedPermissions, bool logout)
         {
-            var oauth = new FacebookOAuthClient { ClientId = appId };
+            var oauth = new FacebookOAuthClient { AppId = appId };
 
             var loginParameters = new Dictionary<string, object>
                     {
