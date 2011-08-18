@@ -53,7 +53,7 @@
             this.MinimizeBox = false;
             this.Name = "FacebookLoginDialog";
             this.ShowInTaskbar = false;
-            this.Text = "FacebookLoginDialog";
+            this.Text = "Login to Facebook ...";
             this.Load += new System.EventHandler(this.FacebookLoginDialog_Load);
             this.ResumeLayout(false);
 

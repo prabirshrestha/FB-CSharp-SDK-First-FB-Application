@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Facebook;
 
@@ -12,7 +6,7 @@ namespace FirstFacebookApplication
 {
     public partial class Form1 : Form
     {
-        private const string AppId = "{app id}";
+        private const string AppId = "{enter your App ID here}"
         private string[] extendedPermissions = new[] { "user_about_me", "offline_access" };
 
         public Form1()
@@ -28,14 +22,6 @@ namespace FirstFacebookApplication
         private void btnFacebookLogin_Click(object sender, EventArgs e)
         {
             var fbLoginDialog = new FacebookLoginDialog(AppId, extendedPermissions);
-            fbLoginDialog.ShowDialog();
-
-            DisplayAppropriateMessage(fbLoginDialog.FacebookOAuthResult);
-        }
-
-        private void btnLoginAsDifferentUser_Click(object sender, EventArgs e)
-        {
-            var fbLoginDialog = new FacebookLoginDialog(AppId, extendedPermissions, true);
             fbLoginDialog.ShowDialog();
 
             DisplayAppropriateMessage(fbLoginDialog.FacebookOAuthResult);

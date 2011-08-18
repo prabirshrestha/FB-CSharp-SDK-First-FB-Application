@@ -31,7 +31,6 @@
             this.lnkTutorial = new System.Windows.Forms.LinkLabel();
             this.btnFacebookLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnLoginAsDifferentUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lnkTutorial
@@ -43,12 +42,12 @@
             this.lnkTutorial.TabIndex = 0;
             this.lnkTutorial.TabStop = true;
             this.lnkTutorial.Text = "http://blog.prabir.me/post/Facebook-CSharp-SDK-Writing-your-first-Facebook-Applic" +
-                "ation.aspx";
+    "ation.aspx";
             this.lnkTutorial.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTutorial_LinkClicked);
             // 
             // btnFacebookLogin
             // 
-            this.btnFacebookLogin.Location = new System.Drawing.Point(92, 70);
+            this.btnFacebookLogin.Location = new System.Drawing.Point(171, 79);
             this.btnFacebookLogin.Name = "btnFacebookLogin";
             this.btnFacebookLogin.Size = new System.Drawing.Size(139, 23);
             this.btnFacebookLogin.TabIndex = 1;
@@ -65,22 +64,11 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "You can read the tutorial on creating this application at ";
             // 
-            // btnLoginAsDifferentUser
-            // 
-            this.btnLoginAsDifferentUser.Location = new System.Drawing.Point(238, 70);
-            this.btnLoginAsDifferentUser.Name = "btnLoginAsDifferentUser";
-            this.btnLoginAsDifferentUser.Size = new System.Drawing.Size(143, 23);
-            this.btnLoginAsDifferentUser.TabIndex = 3;
-            this.btnLoginAsDifferentUser.Text = "Login as different user";
-            this.btnLoginAsDifferentUser.UseVisualStyleBackColor = true;
-            this.btnLoginAsDifferentUser.Click += new System.EventHandler(this.btnLoginAsDifferentUser_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 114);
-            this.Controls.Add(this.btnLoginAsDifferentUser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFacebookLogin);
             this.Controls.Add(this.lnkTutorial);
@@ -99,7 +87,6 @@
         private System.Windows.Forms.LinkLabel lnkTutorial;
         private System.Windows.Forms.Button btnFacebookLogin;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnLoginAsDifferentUser;
     }
 }
 
