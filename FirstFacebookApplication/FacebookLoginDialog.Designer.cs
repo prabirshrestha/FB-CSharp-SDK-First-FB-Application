@@ -38,7 +38,7 @@
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.ScrollBarsEnabled = false;
-            this.webBrowser.Size = new System.Drawing.Size(547, 297);
+            this.webBrowser.Size = new System.Drawing.Size(661, 314);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
@@ -46,7 +46,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 297);
+            this.ClientSize = new System.Drawing.Size(661, 314);
             this.Controls.Add(this.webBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

@@ -1,58 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using Facebook;
-
+﻿
 namespace FirstFacebookApplication
 {
+    using System;
+    using System.Dynamic;
+    using System.Windows.Forms;
+    using Facebook;
+
     public partial class FacebookLoginDialog : Form
     {
-        private Uri navigateUrl;
+        private readonly Uri _loginUrl;
+        protected readonly FacebookClient _fb;
 
-        public FacebookLoginDialog(string appId, string[] extendedPermissions)
+        public FacebookOAuthResult FacebookOAuthResult { get; private set; }
+
+        public FacebookLoginDialog(string appId, string extendedPermissions)
+            : this(new FacebookClient(), appId, extendedPermissions)
         {
-            var oauth = new FacebookOAuthClient { AppId = appId };
+        }
 
-            var loginParameters = new Dictionary<string, object>
-                    {
-                        { "response_type", "token" },
-                        { "display", "popup" }
-                    };
+        public FacebookLoginDialog(FacebookClient fb, string appId, string extendedPermissions)
+        {
+            if (fb == null)
+                throw new ArgumentNullException("fb");
+            if (string.IsNullOrWhiteSpace(appId))
+                throw new ArgumentNullException("appId");
 
-            if (extendedPermissions != null && extendedPermissions.Length > 0)
-            {
-                var scope = new StringBuilder();
-                scope.Append(string.Join(",", extendedPermissions));
-                loginParameters["scope"] = scope.ToString();
-            }
-
-            var loginUrl = oauth.GetLoginUrl(loginParameters);
-
-            this.navigateUrl = loginUrl;
+            _fb = fb;
+            _loginUrl = GenerateLoginUrl(appId, extendedPermissions);
 
             InitializeComponent();
         }
 
+        private Uri GenerateLoginUrl(string appId, string extendedPermissions)
+        {
+            // for .net 3.5
+            // var parameters = new Dictionary<string,object>
+            // parameters["client_id"] = appId;
+            dynamic parameters = new ExpandoObject();
+            parameters.client_id = appId;
+            parameters.redirect_uri = "https://www.facebook.com/connect/login_success.html";
+
+            // The requested response: an access token (token), an authorization code (code), or both (code token).
+            parameters.response_type = "token";
+
+            // list of additional display modes can be found at http://developers.facebook.com/docs/reference/dialogs/#display
+            parameters.display = "popup";
+
+            // add the 'scope' parameter only if we have extendedPermissions.
+            if (!string.IsNullOrWhiteSpace(extendedPermissions))
+                parameters.scope = extendedPermissions;
+
+            // when the Form is loaded navigate to the login url.
+            return _fb.GetLoginUrl(parameters);
+        }
+
         private void FacebookLoginDialog_Load(object sender, EventArgs e)
         {
-            webBrowser.Navigate(this.navigateUrl.AbsoluteUri);
+            // make sure to use AbsoluteUri.
+            webBrowser.Navigate(_loginUrl.AbsoluteUri);
         }
 
         private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            FacebookOAuthResult result;
-            if (FacebookOAuthResult.TryParse(e.Url, out result))
+            // whenever the browser navigates to a new url, try parsing the url.
+            // the url may be the result of OAuth 2.0 authentication.
+
+            FacebookOAuthResult oauthResult;
+            if (_fb.TryParseOAuthCallbackUrl(e.Url, out oauthResult))
             {
-                this.FacebookOAuthResult = result;
-                this.DialogResult = result.IsSuccess ? DialogResult.OK : DialogResult.No;
+                // The url is the result of OAuth 2.0 authentication
+                FacebookOAuthResult = oauthResult;
+                DialogResult = FacebookOAuthResult.IsSuccess ? DialogResult.OK : DialogResult.No;
             }
             else
             {
-                this.FacebookOAuthResult = null;
+                // The url is NOT the result of OAuth 2.0 authentication.
+                FacebookOAuthResult = null;
             }
         }
-
-        public FacebookOAuthResult FacebookOAuthResult { get; private set; }
     }
 }
