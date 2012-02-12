@@ -7,7 +7,7 @@ namespace FirstFacebookApplication
     public partial class Form1 : Form
     {
         private const string AppId = "{enter your App ID here}"
-        private string[] extendedPermissions = new[] { "user_about_me", "offline_access" };
+        private string[] extendedPermissions = new[] { "user_about_me", "read_stream" };
 
         public Form1()
         {
